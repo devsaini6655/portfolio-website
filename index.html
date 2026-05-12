@@ -1,64 +1,516 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dev Saini Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dev Saini | AI Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #070b14;
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at top left, rgba(88,166,255,0.12), transparent 25%),
+        radial-gradient(circle at bottom right, rgba(0,255,170,0.08), transparent 25%);
+      z-index: -1;
+    }
+
+    nav {
+      width: 100%;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      background: rgba(7,11,20,0.75);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-container {
+      max-width: 1150px;
+      margin: auto;
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #58a6ff;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      color: #d4d4d4;
+      text-decoration: none;
+      transition: 0.3s;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: #58a6ff;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px;
+    }
+
+    .hero-container {
+      max-width: 1150px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      align-items: center;
+      gap: 60px;
+    }
+
+    .hero-text h1 {
+      font-size: 4.5rem;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero-text h1 span {
+      color: #58a6ff;
+    }
+
+    .hero-text p {
+      color: #c9d1d9;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 30px;
+      max-width: 600px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 26px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s ease;
+      border: 1px solid transparent;
+    }
+
+    .primary-btn {
+      background: #58a6ff;
+      color: #ffffff;
+      box-shadow: 0 0 20px rgba(88,166,255,0.35);
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-3px);
+      background: #3f92f3;
+    }
+
+    .secondary-btn {
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #ffffff;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .secondary-btn:hover {
+      transform: translateY(-3px);
+      border-color: #58a6ff;
+    }
+
+    .hero-image {
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-image img {
+      width: 320px;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 24px;
+      border: 3px solid rgba(88,166,255,0.25);
+      box-shadow: 0 0 40px rgba(88,166,255,0.2);
+    }
+
+    section {
+      padding: 100px 20px;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 18px;
+      color: #58a6ff;
+    }
+
+    .section-subtitle {
+      color: #b6bec8;
+      max-width: 700px;
+      line-height: 1.8;
+      margin-bottom: 50px;
+    }
+
+    .about-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 35px;
+      border-radius: 24px;
+      line-height: 1.9;
+      color: #d0d7de;
+      backdrop-filter: blur(12px);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+    }
+
+    .project-card {
+      background: linear-gradient(145deg, rgba(20,25,35,0.9), rgba(12,17,26,0.9));
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 30px;
+      border-radius: 24px;
+      transition: 0.35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background: rgba(88,166,255,0.08);
+      border-radius: 50%;
+      top: -60px;
+      right: -60px;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(88,166,255,0.4);
+      box-shadow: 0 10px 35px rgba(0,0,0,0.35);
+    }
+
+    .project-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .project-card p {
+      color: #c4ccd5;
+      line-height: 1.8;
+      margin-bottom: 25px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .project-btn {
+      display: inline-block;
+      text-decoration: none;
+      background: rgba(88,166,255,0.15);
+      color: #58a6ff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      transition: 0.3s;
+      position: relative;
+      z-index: 2;
+      font-weight: 500;
+    }
+
+    .project-btn:hover {
+      background: #58a6ff;
+      color: #ffffff;
+    }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .skill {
+      padding: 14px 22px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #d6dde5;
+      transition: 0.3s ease;
+    }
+
+    .skill:hover {
+      transform: translateY(-4px);
+      border-color: rgba(88,166,255,0.4);
+      color: #58a6ff;
+    }
+
+    .contact-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .contact-card p {
+      margin: 15px 0;
+      color: #d1d7de;
+      font-size: 1.05rem;
+    }
+
+    .contact-card a {
+      color: #58a6ff;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #7d8590;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    @media (max-width: 768px) {
+      .hero-text h1 {
+        font-size: 3rem;
+      }
+
+      .hero {
+        padding-top: 120px;
+      }
+
+      .nav-links {
+        gap: 15px;
+        font-size: 0.8rem;
+      }
+
+      .hero-image img {
+        width: 250px;
+        height: 250px;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <h1>Dev Saini</h1>
-        <p>AI & Data Science Student</p>
-    </header>
+  <nav>
+    <div class="nav-container">
+      <div class="logo">Dev Saini</div>
 
-    <section>
-        <h2>About Me</h2>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-container">
+
+      <div class="hero-text">
+        <h1>Hi, I'm <span>Dev Saini</span></h1>
+
         <p>
-            Passionate about Machine Learning, Computer Vision, NLP, and intelligent safety systems.
-            Aspiring to pursue higher studies and research in Japan.
+          AI & Data Science student focused on Machine Learning, Computer Vision,
+          NLP, and intelligent safety systems. Passionate about building practical AI
+          solutions and aspiring to pursue advanced research in Japan.
         </p>
-    </section>
 
-    <section>
-        <h2>Projects</h2>
+        <div class="button-group">
+          <a class="btn primary-btn" href="https://github.com/devsaini6655" target="_blank">
+            View GitHub
+          </a>
 
-        <div>
-            <h3>Aircraft Pre-Flight Safety AI</h3>
-            <p>
-                Predictive aircraft safety system using machine learning and NASA CMAPSS datasets.
-            </p>
+          <a class="btn secondary-btn" href="https://www.linkedin.com/in/dev-saini-048384268" target="_blank">
+            LinkedIn
+          </a>
+
+          <a class="btn secondary-btn" href="#projects">
+            Explore Projects
+          </a>
         </div>
+      </div>
 
-        <div>
-            <h3>AI Life Coach</h3>
-            <p>
-                NLP-based assistant for sentiment analysis and personalized advice generation.
-            </p>
-        </div>
+      <div class="hero-image">
+        <img src="https://avatars.githubusercontent.com/u/218864748?v=4" alt="Dev Saini">
+      </div>
 
-        <div>
-            <h3>Animal Detection System</h3>
-            <p>
-                Real-time animal detection using YOLOv8 and OpenCV.
-            </p>
-        </div>
+    </div>
+  </section>
 
-    </section>
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
 
-    <section>
-        <h2>Skills</h2>
+      <p class="section-subtitle">
+        Building practical AI systems with a strong focus on real-world impact,
+        predictive intelligence, and intelligent monitoring technologies.
+      </p>
+
+      <div class="about-card">
         <p>
-            Python • Machine Learning • Computer Vision • NLP • Git & GitHub
+          I'm an AI & Data Science student currently pursuing my Bachelor's degree at
+          Amity University. My primary interests include Machine Learning,
+          Computer Vision, Natural Language Processing, and intelligent safety systems.
         </p>
-    </section>
 
-    <section>
-        <h2>Contact</h2>
-        <p>Email: devsaini665@outlook.com</p>
-        <p>GitHub: github.com/devsaini6655</p>
-    </section>
+        <br>
+
+        <p>
+          I have worked on projects including an Aircraft Pre-Flight Safety AI system
+          using NASA CMAPSS datasets, an NLP-based AI Life Coach, and a YOLOv8-powered
+          Animal Detection System.
+        </p>
+
+        <br>
+
+        <p>
+          Alongside technical development, I aspire to pursue higher studies and
+          research in Japan, focusing on advanced AI systems and intelligent technologies.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <h2 class="section-title">Featured Projects</h2>
+
+      <p class="section-subtitle">
+        A selection of projects focused on AI applications, predictive systems,
+        computer vision, and practical machine learning solutions.
+      </p>
+
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <h3>✈️ Aircraft Pre-Flight Safety AI</h3>
+
+          <p>
+            Predictive aircraft safety system using machine learning and NASA CMAPSS
+            datasets for flight readiness analysis and intelligent monitoring.
+          </p>
+
+          <a class="project-btn" href="https://github.com/devsaini6655/aircraft-preflight-safety-ai" target="_blank">
+            View Project
+          </a>
+        </div>
+
+        <div class="project-card">
+          <h3>🧠 AI Life Coach</h3>
+
+          <p>
+            NLP-powered sentiment analysis assistant designed to generate
+            personalized recommendations and emotional insight.
+          </p>
+
+          <a class="project-btn" href="https://github.com/devsaini6655/AI-Life-Coach" target="_blank">
+            View Project
+          </a>
+        </div>
+
+        <div class="project-card">
+          <h3>🐾 Animal Detection System</h3>
+
+          <p>
+            Real-time animal detection system built using YOLOv8 and OpenCV
+            for object identification and live detection.
+          </p>
+
+          <a class="project-btn" href="https://github.com/devsaini6655/animal-detection-yolov8" target="_blank">
+            View Project
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="container">
+      <h2 class="section-title">Technical Skills</h2>
+
+      <p class="section-subtitle">
+        Technologies, tools, and domains I actively work with while building AI systems.
+      </p>
+
+      <div class="skills-grid">
+        <div class="skill">Python</div>
+        <div class="skill">Machine Learning</div>
+        <div class="skill">Computer Vision</div>
+        <div class="skill">Natural Language Processing</div>
+        <div class="skill">Data Analysis</div>
+        <div class="skill">Git & GitHub</div>
+        <div class="skill">YOLOv8</div>
+        <div class="skill">OpenCV</div>
+        <div class="skill">Artificial Intelligence</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title">Contact</h2>
+
+      <p class="section-subtitle">
+        Open to research opportunities, collaborations, and AI-related discussions.
+      </p>
+
+      <div class="contact-card">
+        <p>📧 Email: <a href="mailto:devsaini665@outlook.com">devsaini665@outlook.com</a></p>
+
+        <p>💻 GitHub: <a href="https://github.com/devsaini6655" target="_blank">github.com/devsaini6655</a></p>
+
+        <p>🔗 LinkedIn: <a href="https://www.linkedin.com/in/dev-saini-048384268" target="_blank">linkedin.com/in/dev-saini-048384268</a></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Dev Saini • AI & Data Science Portfolio</p>
+  </footer>
 
 </body>
 </html>
